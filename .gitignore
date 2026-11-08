@@ -1,0 +1,50 @@
+# ---- Dados pessoais: NUNCA versionar ----
+# Banco, extratos importados e arquivos da B3
+data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+# Planilhas/extratos em qualquer pasta (os testes geram as planilhas de exemplo na hora)
+*.xlsx
+*.xls
+*.xlsm
+*.csv
+*.ods
+# Imagens/prints soltos (ex.: print da planilha antiga). Imagens do app ficam em frontend/public/ se precisar.
+*.png
+*.jpg
+*.jpeg
+!frontend/public/**
+# Expectativas pessoais dos testes opcionais
+backend/tests/local/
+
+# ---- Segredos ----
+.env
+.env.*
+!.env.example
+
+# ---- Notas locais do Claude Code (pessoais) ----
+CLAUDE.local.md
+.claude/settings.local.json
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# ---- Node / build ----
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# ---- Sistema / editor / screenshots ----
+.shots/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

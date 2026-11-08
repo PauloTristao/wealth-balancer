@@ -1,0 +1,99 @@
+# Classificação de ativos e regras especiais.
+# Classes: ACAO | FII | RF | INTL | OUTROS
+
+# Tickers terminados em 11 que NÃO são FII.
+etfs_internacionais:   # -> INTL / ETF
+  - IVVB11
+  - NASD11
+  - XINA11
+  - SPXI11
+  - ACWI11
+  - EURP11
+  - WRLD11
+  - BNDX11
+  - GOLD11
+  - HASH11
+  - QBTC11
+  - ETHE11
+  - TECK11
+  - USTK11
+  - JOGO11
+  - EMEG11
+  - SPXB11
+  - NDIV11
+etfs_nacionais:        # -> ACAO / ETF
+  - BOVA11
+  - BOVV11
+  - SMAL11
+  - DIVO11
+  - BRAX11
+  - ECOO11
+  - PIBB11
+  - IMAB11   # ETF de renda fixa -> sobrescrito em overrides
+  - FIXA11
+units_acoes:           # units de empresas -> ACAO
+  - TAEE11
+  - SAPR11
+  - KLBN11
+  - SANB11
+  - BPAC11
+  - ALUP11
+  - ENGI11
+  - IGTI11
+  - CPLE11
+  - TIET11
+  - SULA11
+  - BIDI11
+  - AESB11
+  - RNEW11
+  - STBP11
+
+# Sobrescrita manual: ticker -> {classe, subtipo, nome}
+overrides:
+  IMAB11: {classe: RF, subtipo: ETF}
+  FIXA11: {classe: RF, subtipo: ETF}
+
+# Custo atribuído por ação em bonificações (R$/ação), por ticker e data (AAAA-MM-DD).
+# Sem entrada -> custo zero (PM cai) e um aviso é gerado.
+custo_bonificacao: {}
+#  ITSA4:
+#    "2025-12-22": 18.81
+
+# Dias de tolerância para casar a liquidação da B3 com a linha de "Empréstimo" (aluguel)
+janela_emprestimo_dias: 5
+
+# Dias corridos (para trás) para casar a liquidação da Movimentação com o pregão do relatório de Negociação.
+# D+2 úteis + feriados longos (Carnaval/Semana Santa) chegam a 6 dias; 10 dá folga.
+janela_liquidacao_dias: 10
+
+# Ativos sem histórico no Yahoo (convertidos/deslistados): usar a série de outro ticker na evolução patrimonial.
+proxy_historico:
+  CPLE6: CPLE3
+  CPLE5: CPLE3
+
+# ETFs internacionais negociados na B3 (taxa de administração aproximada, % a.a. — confira no site do gestor).
+# foco: core (diversificado amplo) | tema | protecao
+etf_info:
+  IVVB11: {nome: "iShares S&P 500", indice: "S&P 500", taxa: 0.23, foco: core}
+  SPXI11: {nome: "It Now S&P 500", indice: "S&P 500", taxa: 0.21, foco: core}
+  NASD11: {nome: "Trend Nasdaq 100", indice: "Nasdaq-100", taxa: 0.30, foco: tema}
+  ACWI11: {nome: "iShares MSCI ACWI", indice: "MSCI ACWI (global)", taxa: 0.30, foco: core}
+  WRLD11: {nome: "Investo FTSE Global", indice: "Ações globais", taxa: 0.30, foco: core}
+  EURP11: {nome: "Trend Europa", indice: "MSCI Europe", taxa: 0.30, foco: tema}
+  XINA11: {nome: "Trend China", indice: "MSCI China", taxa: 0.30, foco: tema}
+  BNDX11: {nome: "Investo Bonds Globais", indice: "Renda fixa global", taxa: 0.30, foco: protecao}
+  GOLD11: {nome: "Trend Ouro", indice: "Ouro", taxa: 0.30, foco: protecao}
+  HASH11: {nome: "Hashdex Nasdaq Crypto", indice: "Cripto", taxa: 0.70, foco: tema}
+
+# BDRs acompanhados na tela de Oportunidades (os que você possui entram automaticamente).
+bdrs_acompanhados:
+  ROXO34: {nome: "Nu Holdings", setor: "Financeiro"}
+  AAPL34: {nome: "Apple", setor: "Tecnologia"}
+  MSFT34: {nome: "Microsoft", setor: "Tecnologia"}
+  GOGL34: {nome: "Alphabet", setor: "Tecnologia"}
+  AMZO34: {nome: "Amazon", setor: "Consumo/Tecnologia"}
+  NVDC34: {nome: "Nvidia", setor: "Tecnologia"}
+  BERK34: {nome: "Berkshire Hathaway", setor: "Holding"}
+  JNJB34: {nome: "Johnson & Johnson", setor: "Saúde"}
+  VISA34: {nome: "Visa", setor: "Financeiro"}
+  COCA34: {nome: "Coca-Cola", setor: "Consumo"}

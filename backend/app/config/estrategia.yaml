@@ -1,0 +1,49 @@
+# Alocação alvo por classe (percentual) e faixas permitidas.
+alocacao:
+  ACAO: {alvo: 25, min: 15, max: 35}
+  FII:  {alvo: 25, min: 15, max: 35}
+  RF:   {alvo: 25, min: 15, max: 35}
+  INTL: {alvo: 25, min: 15, max: 35}
+
+# ---------------------------------------------------------------------------
+# Critérios das Oportunidades. Cada critério vale de 0 a 1 ponto com transição
+# linear entre "zero" (0 ponto) e "cheio" (1 ponto). Pesos por pilar somam 100.
+# Força: Alta exige score >= forca.alta E pilares de PREÇO e QUALIDADE >= forca.pilar_minimo
+# (filosofia: empresa boa E preço bom; não adianta só um).
+# ---------------------------------------------------------------------------
+forca:
+  alta: 70
+  media: 50
+  pilar_minimo: 50
+
+acoes:
+  liquidez_diaria_min: 2000000      # R$/dia — abaixo disso é descartada
+  pvp: {piso: 0.5, ideal_max: 1.0, zero_em: 1.6}     # abaixo do piso = desconto suspeito
+  pl: {zero_baixo: 5, min_ideal: 8, max_ideal: 20, zero_alto: 30}
+  roe: {zero: 5, cheio: 15}
+  dy: {zero: 2, cheio: 6, suspeito: 15}             # acima de 'suspeito' vale no máximo meio ponto
+  div_liq_ebit: {cheio: 2.5, zero: 4.5}               # não se aplica a bancos/seguradoras
+  div_liq_patrimonio: {cheio: 0.5, zero: 1.5}         # usado quando o EBIT não é representativo (holdings)
+  margem_liquida: {zero: 0, cheio: 10}
+  cagr_receita_5a: {zero: -5, cheio: 8}
+  pesos: {preco: 30, qualidade: 30, dividendos: 20, saude: 20}
+  alta_exige: {pl_min: 8, pl_max: 20, pvp_max: 1.0}  # fora disso a força máxima é Média
+
+fii:
+  liquidez_diaria_min: 500000
+  dy: {zero: 6, cheio: 11, suspeito: 16}
+  pvp: {piso: 0.6, cheio_ate: 0.85, zero_em: 1.15}    # abaixo do piso = desconto suspeito
+  cobertura_ffo: {zero: 0.6, cheio: 1.0}              # FFO yield / DY: o fundo gera o que distribui?
+  vacancia: {cheio: 5, zero: 25}                      # só fundos de tijolo
+  imoveis: {zero: 1, cheio: 6}
+  patrimonio: {zero: 300000000, cheio: 1500000000}
+  pesos: {preco: 30, renda: 30, qualidade: 40}
+  alta_exige: {pvp_max: 1.0}
+
+etf:
+  taxa: {cheio: 0.25, zero: 0.8}
+
+renda_fixa:
+  ipca_real: {baixa_ate: 5.5, alta_a_partir: 6.5}     # juro real (% a.a.) de IPCA+
+  prefixado_real: {baixa_ate: 5.0, alta_a_partir: 7.0} # juro real implícito do prefixado vs IPCA esperado
+  vencimento_min_anos: 1
